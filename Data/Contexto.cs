@@ -1,9 +1,12 @@
 ﻿using System.Linq;
+using MongoDB.Bson;
 using MongoDB.Driver;
-using API_MongoDB.Models;
-using Microsoft.Extensions.Configuration;
+using Tapiocaria.Models;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using Microsoft.Extensions.Configuration; 
 
-namespace API_MongoDB.Data
+namespace Tapiocaria.Data
 {
     public class Contexto
     {
@@ -19,6 +22,26 @@ namespace API_MongoDB.Data
             var db = client.GetDatabase("lanchonete");
 
             Tapiocas = db.GetCollection<Tapioca>("tapiocas");
+        }
+    }
+
+    public static class IMongoCollectionExtension
+    {
+        public static async Task ExcluirAsync<T>(this IMongoCollection<T> collection, string id) where T : class
+        {
+            var filter = Builders<T>.Filter.Eq("_id", ObjectId.Parse(id));    
+            await collection.DeleteOneAsync(filter);
+        }
+
+        public static async Task<T> BuscarAsync<T>(this IMongoCollection<T> collection, string id) where T : class
+        {
+            var filter = Builders<T>.Filter.Eq("_id", ObjectId.Parse(id));    
+            return await collection.Find(filter).FirstOrDefaultAsync();
+        }
+
+        public static async Task<IList<T>> BuscarTodosAsync<T>(this IMongoCollection<T> collection) where T : class
+        {            
+            return await collection.Find(new BsonDocument()).ToListAsync();
         }
     }
 }

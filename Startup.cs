@@ -1,11 +1,11 @@
-﻿using API_MongoDB.Data;
+﻿using Tapiocaria.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace API_MongoDB
+namespace Tapiocaria
 {
     public class Startup
     {

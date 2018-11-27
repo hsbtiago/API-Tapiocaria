@@ -1,11 +1,11 @@
-﻿using API_MongoDB.Data;
+﻿using Tapiocaria.Data;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using API_MongoDB.Models;
+using Tapiocaria.Models;
 
-namespace API_MongoDB.Controllers
+namespace Tapiocaria.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -21,15 +21,14 @@ namespace API_MongoDB.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {   
-            var lista = await db.Tapiocas.Find(new BsonDocument()).ToListAsync();                
+            var lista = await db.Tapiocas.BuscarTodosAsync();                
             return Ok(lista);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(string id)
-        {
-            var filter = Builders<Tapioca>.Filter.Eq(p => p.Id, ObjectId.Parse(id));            
-            var model = await db.Tapiocas.Find(filter).FirstAsync();
+        {            
+            var model = await db.Tapiocas.BuscarAsync(id);
             
             if (model is null)
                 return NotFound();
@@ -59,7 +58,7 @@ namespace API_MongoDB.Controllers
                 var update = Builders<Tapioca>.Update
                     .Set(p => p.Recheio, model.Recheio)
                     .Set(p => p.Preco, model.Preco);
-
+                
                 await db.Tapiocas.UpdateOneAsync(filter, update);     
 
                 return Accepted(model);
@@ -70,10 +69,8 @@ namespace API_MongoDB.Controllers
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
-        {
-            var filter = Builders<Tapioca>.Filter.Eq(p => p.Id, ObjectId.Parse(id));    
-            await db.Tapiocas.FindOneAndDeleteAsync(filter);
-
+        {            
+            await db.Tapiocas.ExcluirAsync(id);
             return NoContent();
         }
         
