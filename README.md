@@ -8,7 +8,7 @@ dotnet run
 http://localhost:5000/api/tapiocas{/id}
 
 # Verbos Disponíveis
-Get
-Post
-Put
-Delete
+* Get
+* Post
+* Put
+* Delete
