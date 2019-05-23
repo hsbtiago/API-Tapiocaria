@@ -1,9 +1,9 @@
-﻿using Tapiocaria.Data;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
+using Tapiocaria.Data;
+using Tapiocaria.Models;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Bson;
-using MongoDB.Driver;
-using Tapiocaria.Models;
 
 namespace Tapiocaria.Controllers
 {

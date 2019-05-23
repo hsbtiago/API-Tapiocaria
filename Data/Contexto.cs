@@ -4,24 +4,22 @@ using MongoDB.Driver;
 using Tapiocaria.Models;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using Microsoft.Extensions.Configuration; 
+using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Tapiocaria.Data
 {
     public class Contexto
     {
-        private IConfiguration _configuration;        
         public IMongoCollection<Tapioca> Tapiocas {get; private set;}
 
-        public Contexto(IConfiguration config)
+        public Contexto([FromServices]IConfiguration config)
         {
-            _configuration = config;
-
-            var client = new MongoClient(_configuration.GetConnectionString("localhost"));
+            var client = new MongoClient(config.GetConnectionString("localhost"));
             
-            var db = client.GetDatabase("lanchonete");
+            var db = client.GetDatabase("Tapiocaria");
 
-            Tapiocas = db.GetCollection<Tapioca>("tapiocas");
+            Tapiocas = db.GetCollection<Tapioca>("Tapiocas");
         }
     }
 
