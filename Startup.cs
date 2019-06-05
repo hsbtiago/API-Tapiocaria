@@ -28,7 +28,9 @@ namespace Tapiocaria
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
+            app.UseHsts();
+            app.UseHttpsRedirection();            
             app.UseMvc();
         }
     }

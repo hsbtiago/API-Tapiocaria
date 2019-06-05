@@ -15,7 +15,7 @@ namespace Tapiocaria.Data
 
         public Contexto([FromServices]IConfiguration config)
         {
-            var client = new MongoClient(config.GetConnectionString("localhost"));
+            var client = new MongoClient(config.GetConnectionString("mongo"));
             
             var db = client.GetDatabase("Tapiocaria");
 
