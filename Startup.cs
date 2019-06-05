@@ -30,10 +30,10 @@ namespace Tapiocaria
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors(a => {
-                a.AllowAnyMethod();
-                a.AllowAnyOrigin();
-            });
+            app.UseCors(a => a
+                .AllowAnyMethod()
+                .AllowAnyOrigin()
+                .AllowAnyHeader());
             
             app.UseHsts();
             app.UseHttpsRedirection();            

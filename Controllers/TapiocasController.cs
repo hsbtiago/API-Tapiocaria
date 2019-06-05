@@ -4,6 +4,7 @@ using Tapiocaria.Data;
 using Tapiocaria.Models;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Tapiocaria.Controllers
 {
@@ -40,7 +41,7 @@ namespace Tapiocaria.Controllers
         public async Task<IActionResult> Post([FromBody] Tapioca model)
         {
             if (ModelState.IsValid)
-            {
+            {                
                 await db.Tapiocas.InsertOneAsync(model);
                 return Created(nameof(Get), model);
             }
@@ -49,11 +50,11 @@ namespace Tapiocaria.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(string id, [FromBody] Tapioca model)
+        public async Task<IActionResult> Put([FromBody] Tapioca model)
         {
             if (ModelState.IsValid)
             {
-                var filter = Builders<Tapioca>.Filter.Eq(p => p.Id, ObjectId.Parse(id));                    
+                var filter = Builders<Tapioca>.Filter.Eq(p => p.Id, model.Id);                    
                 
                 var update = Builders<Tapioca>.Update
                     .Set(p => p.Recheio, model.Recheio)

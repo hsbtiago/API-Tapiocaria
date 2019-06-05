@@ -27,13 +27,13 @@ namespace Tapiocaria.Data
     {
         public static async Task ExcluirAsync<T>(this IMongoCollection<T> collection, string id) where T : class
         {
-            var filter = Builders<T>.Filter.Eq("_id", ObjectId.Parse(id));    
+            var filter = Builders<T>.Filter.Eq("Id", id);    
             await collection.DeleteOneAsync(filter);
         }
 
         public static async Task<T> BuscarAsync<T>(this IMongoCollection<T> collection, string id) where T : class
         {
-            var filter = Builders<T>.Filter.Eq("_id", ObjectId.Parse(id));    
+            var filter = Builders<T>.Filter.Eq("Id", id);    
             return await collection.Find(filter).FirstOrDefaultAsync();
         }
 
