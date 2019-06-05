@@ -19,6 +19,7 @@ namespace Tapiocaria
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<Contexto>();            
+            services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -29,6 +30,11 @@ namespace Tapiocaria
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(a => {
+                a.AllowAnyMethod();
+                a.AllowAnyOrigin();
+            });
+            
             app.UseHsts();
             app.UseHttpsRedirection();            
             app.UseMvc();
