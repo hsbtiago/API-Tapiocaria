@@ -1,5 +1,5 @@
-# Tapiocaria
-É uma API RESTful com CRUD de tapioca utilizando ASPNET CORE 2.1 e MongoDB.
+# API-Tapiocaria
+CRUD de tapiocas RESTful utilizando ASPNET CORE 2.1 e MongoDB.
 
 # Run
 dotnet run
